@@ -8,7 +8,8 @@
     <!--个人信息-->
     <div class="head" @click="modify">
         <div class="img">
-            <img alt :src="'http://116.62.181.150/'+info.url" />
+            <!-- <img alt :src="'http://116.62.181.150/'+info.url" /> -->
+            <img :src="info.url" alt="">
         </div>
         <div class="nickname">
             <span>{{info.nickname}}</span>
@@ -103,11 +104,6 @@ export default {
                 err;
             });
         },
-        // unique(game) { // 根据唯一标识orderId来对数组进行过滤
-        //     const res = new Map(); //定义常量 res,值为一个Map对象实例
-        //     //返回arr数组过滤后的结果，结果为一个数组   过滤条件是，如果res中没有某个键，就设置这个键的值为1
-        //     return game.filter((game) => !res.has(game.id) && res.set(game.id, 1))
-        // },
     },
     created() {
         // 个人信息

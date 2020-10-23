@@ -64,7 +64,7 @@ export default {
                         this.$store.commit("phone", res.data.phone);
                         this.$store.commit("avatar", res.data.model.url);
                         this.$store.commit("email", res.data.email);
-                        this.$router.push("/accountNum");
+                        this.$router.push("/mine");
                         this.$layer.msg("登陆成功", {
                             icon: 16,
                             // shade: 0.3,
@@ -126,7 +126,7 @@ export default {
             },
             function (reqData, opts) {
                 QC.Login.getMe(function (openId, accessToken) {
-                    console.log(openId)
+                    // console.log(openId)
                     let access_token = accessToken
                     axios({
                         url: 'http://116.62.181.150/api/users/QCLogin',
@@ -139,13 +139,26 @@ export default {
                         that.$store.commit('avatar', res.data.users.url)
                         that.$store.commit('nickname', res.data.users.nickname)
                         that.$store.commit('player', res.data.users.player)
-                        if (res.data.res = true) {
+                        that.$store.commit('inCread', res.data.users.id)
+                        if (res.data.users.phone = null) {
+                            // 第一次登录qq跳转到绑定手机号页面
                             let {
                                 href
                             } = that.$router.resolve({
                                 path: 'bind',
                                 query: {
                                     a: 1
+                                }
+                            })
+                            window.open(href, '_blank')
+                            window.close('http://192.168.0.91:8080/login')
+                        } else {
+                            const {
+                                href
+                            } = that.$router.resolve({
+                                name: 'mine',
+                                query: {
+                                    a: 2
                                 }
                             })
                             window.open(href, '_blank')

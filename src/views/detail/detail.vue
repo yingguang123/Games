@@ -213,7 +213,6 @@ export default {
                 // console.log(res);
                 if (res.data.msg == "取消收藏成功") {
                     this.is_active = 1;
-
                 } else {
                     this.is_active = 0;
                 }

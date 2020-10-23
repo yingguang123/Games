@@ -97,11 +97,11 @@ export default {
                                     if (res.data.msg == '绑定成功') {
                                         this.phone = res.data.phone
                                         this.$store.commit("phone", this.phone);
+                                        this.$router.push('/accountNum')
                                     }
                                 })
                             this.phoneModel = !this.phoneModel;
                             this.bind = !this.bind
-                            this.number = "";
                         } else {
                             this.$layer.msg("验证码错误", {
                                 icon: 16,

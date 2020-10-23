@@ -62,7 +62,8 @@ export default {
             pay: false,
             payment: '',
             areaid: '',
-            tradename: ''
+            tradename: '',
+            oid: ''
         };
     },
     methods: {
@@ -75,61 +76,21 @@ export default {
         now() {
             if (this.payment == "支付宝") {
                 // console.log(this.aid)
-                // 添加商品信息
-                axios({
-                        url: "http://www.wwyyyy.shop/api/transaction/insert",
-                        method: "post",
-                        params: {
-                            gid: this.gid, //游戏id
-                            uid: this.$store.state.uid, //玩家ID
-                            // area: this.area, //大区
-                            roleid: this.roleid, //角色名id
-                            tradename: this.tradename, //商品名称
-                            paymentmethod: 2, //支付方式
-                            money: this.money, //价钱
-                            aid: this.aid, //大区id
-                            order: 2, //未支付状态
-                        }
-                    })
-                    .then(res => {
-                        console.log(res)
-                        if (res.data.result == true) {
-                            aplay(res.data.model.id, 'http://localhost:8080/record').then(res => {
-                                console.log(res)
-                                //支付宝支付
-                                //添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
-                                const div = document.createElement("div");
-                                div.innerHTML = res.data.detail;
-                                document.body.appendChild(div);
-                                document.forms[0].submit();
-                            })
-                        }
-                    })
-
-                // axios({
-                //     url: 'http://www.wwyyyy.shop/api/transaction/ZFmoney',
-                //     method: 'post',
-                //     params: {
-                //         money: this.money, //价钱
-                //         bodyes: this.tradename, //商品名称
-                //         paymentmethod: 1, //支付方式
-                //         sub: "充值"
-                //     }
-                // }).then(res => {
-                //     // console.log(res)
-                //     //支付宝支付
-                //     //添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
-                //     const div = document.createElement("div");
-                //     div.innerHTML = res.data.detail;
-                //     document.body.appendChild(div);
-                //     document.forms[0].submit();
-                // })
-
+                aplay(this.oid, 'http://localhost:8080/record').then(res => {
+                    console.log(res)
+                    //支付宝支付
+                    //添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
+                    const div = document.createElement("div");
+                    div.innerHTML = res.data.detail;
+                    document.body.appendChild(div);
+                    document.forms[0].submit();
+                })
             }
         },
         goOff() {
             this.$router.push('/GameCenter')
         }
+
     },
     created() {
         this.money = this.$route.params.money,
@@ -144,7 +105,25 @@ export default {
         // console.log(this.gid, this.roleid)
     },
     mounted() {
-
+        // 添加商品信息
+        axios({
+            url: "http://www.wwyyyy.shop/api/transaction/insert",
+            method: "post",
+            params: {
+                gid: this.gid, //游戏id
+                uid: this.$store.state.uid, //玩家ID
+                // area: this.area, //大区
+                roleid: this.roleid, //角色名id
+                tradename: this.tradename, //商品名称
+                paymentmethod: 2, //支付方式
+                money: this.money, //价钱
+                aid: this.aid, //大区id
+                order: 2, //未支付状态
+            }
+        }).then(res => {
+            console.log(res)
+            this.oid = res.data.model.id
+        })
     },
 };
 </script>
