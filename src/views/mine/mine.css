@@ -1,0 +1,157 @@
+
+
+.title {
+    width: 100%;
+    background: #66CCFF;
+    color: #fff;
+    font-size: 14px;
+    border-bottom: none;
+}
+
+.head {
+    width: 100%;
+    height: 170px;
+    color: #fff;
+    background: linear-gradient(180deg, rgba(102, 204, 255, 1) 0%, rgba(102, 204, 255, 1) 0%, rgba(102, 153, 255, 1) 100%, rgba(102, 153, 255, 1) 100%);
+}
+/* 头像 */
+.img {
+    text-align: center;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.head .img img {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    margin-top: 5vw;
+    position: relative;
+}
+.img>i{
+    position: absolute;
+    top: 36vw;
+    left: 63vw;
+}
+/* 昵称 */
+ .nickname {
+    font-size: 14px;
+    text-align: center;
+    padding-top: 2vw;
+    /* width: 40px; */
+    margin: 0 auto;
+    /* width:150px; */
+}
+.input{
+    display: inline-block;
+    position: relative;
+    width: 90px;
+    text-align: center;
+    border:none;
+    background:none;
+    margin-right: 10px;
+}
+.inputs{
+    width: 95px;
+    height: 25px;
+    background: #fff;
+border: none;
+text-align: center;
+margin-right: 20px;
+}
+.nickname>i {
+    position: absolute;
+    top: 46vw;
+    left: 55vw;
+    display: inline-block;
+    padding-left: 6vw;
+}
+/* ID */
+.id{
+    padding-top: 3vw;
+}
+.head .id p {
+    text-align: center;
+    font-size: 13px;
+}
+
+.body {
+    margin-top: 30px;
+}
+
+.body .tit {
+    margin: 0 13px;
+    border-bottom: 2px solid #e4e4e4;
+}
+
+.body .tit p {
+    margin-bottom: 14px;
+}
+.body .tit1{
+    margin: 20px 13px 0;
+    border-bottom: 2px solid #e4e4e4;
+}
+.body .tit1 p {
+    margin-bottom: 14px;
+}
+
+.tax {
+    overflow: hidden;
+}
+
+.body .tax .game {
+    margin-top: 14px;
+    margin-left: 10px;
+    float: left;
+
+}
+.body .tax .game img {
+    width: 58px;
+    border-radius: 10px;
+
+}
+
+.body .tax .game .font p {
+    font-size: 13px;
+    font-family: 'Meiryo UI Negreta', 'Meiryo UI';
+    font-weight: bold;
+    padding-left: 9px;
+    line-height: 22px;
+}
+
+.body .tax .game .name {
+    font-size: 15px;
+    padding-top: 7px;
+}
+
+.body .bg {
+    width: 100%;
+    height: 20px;
+    background: #f2f2f2;
+    margin: 32px 0 14px;
+}
+
+.body .info {
+    padding-left: 13px;
+}
+
+.body .info .infoChilren {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #e4e4e4;
+    padding: 15px 13px 15px 0;
+}
+
+.sign {
+    width: 140px;
+    height: 40px;
+    background-color: #169bd5;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    margin: 46px auto 78px;
+}

@@ -1,0 +1,62 @@
+.title {
+    width: 100%;
+    background-color: #666;
+    color: #ffffff;
+}
+
+.title i {
+    float: left;
+    margin-left: -133px;
+}
+
+.order{
+    display: flex;
+    justify-content: space-between;
+    background-color: #f7f7f7;
+    height: 58px;
+    align-items: center;
+    padding: 0 15px;
+}
+.order span{
+    color: #f00;
+}
+.commodity1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    height: 102px;
+    background-color: #fff;
+}
+.commodity1 .pic img{
+    width: 66px;
+    height: 66px;
+    border-radius: 10px;
+}
+.commodity1 .game{
+    position: absolute;
+    left: 92px;
+}
+.commodity1 .game .time{
+    font-size: 12px;
+    line-height: 36px;
+}
+.commodity1 .price{
+    font-weight: bold;
+}
+.btn{
+    height: 33px;
+    margin-top: 15px;
+}
+.btn button{
+    width: 80px;
+    height: 29px;
+    border: none;
+    background-color: #169BD5;
+    color: #fff;
+    border-radius: 8px;
+    /* letter-spacing: 10px;
+    padding-left: 13px; */
+    float: right;
+    margin-right: 10px;
+}

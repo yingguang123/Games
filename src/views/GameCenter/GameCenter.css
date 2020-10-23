@@ -1,0 +1,103 @@
+.bg {
+    width: 100%;
+    background-color: #666;
+    color: #fff;
+}
+
+.payment {
+    width: 14.76vw;
+    height: 7.12vw;
+    background: #697b82;
+    border: none;
+    border-radius: 2vw;
+    color: #fff;
+    font-size: 4vw;
+    margin-left: 22vw
+}
+
+.banner {
+    width: 100%;
+    height: 200px;
+}
+
+.gameslist {
+    width: 94%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+h5 {
+    margin: 3vw auto 0vw;
+    padding-bottom: 3vw;
+    font-size: 4.73vw;
+    padding-left: 10px;
+    font-weight: normal;
+}
+
+.list {
+    border-top: 0.26vw solid #e4e4e4;
+
+}
+
+.list .con {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    margin: 3vw auto;
+}
+
+.list .con>img{
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+}
+
+.list .con .cent {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.list .con .cent p {
+    line-height: 6vw;
+}
+
+.list .con .cent .name {
+    font-size: 4.82vw;
+}
+
+.list .con .cent .name span {
+    color: #999999;
+    font-size: 3.82vw;
+    padding-left: 2vw;
+}
+
+.list .con .cent .pro {
+    font-size: 2.82vw;
+    color: #999;
+}
+.list .con .action {
+    width: 11.8vw;
+    height: 7vw;
+    border: 0.26vw solid #4396fe;
+    background: none;
+    color: #4396fe;
+    position: absolute;
+    right: 15px;
+}
+.pic>img{
+    width: 20px;
+    height: 20px;
+}
+.action1{
+    position: absolute;
+    right: 78px;
+    background: none;
+    border: #fff;
+    outline: none;
+    
+}
+
+.action1>img{
+    width:20px;
+    height:20px;
+}
