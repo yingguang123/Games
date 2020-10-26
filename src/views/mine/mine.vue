@@ -8,8 +8,8 @@
     <!--个人信息-->
     <div class="head" @click="modify">
         <div class="img">
-            <!-- <img alt :src="'http://116.62.181.150/'+info.url" /> -->
-            <img :src="info.url" alt="">
+            <img alt :src="'http://116.62.181.150/'+info.url" />
+            <!-- <img :src="info.url" alt=""> -->
         </div>
         <div class="nickname">
             <span>{{info.nickname}}</span>
@@ -115,7 +115,7 @@ export default {
         GameRecord(this.$store.state.uid).then(res => {
             // console.log(res.data)
             this.game = res.data.list
-            this.game.splice(0, 1)
+            // this.game.splice(0, 1, )
         });
         // 我的收藏
         axios({

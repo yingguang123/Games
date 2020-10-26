@@ -11,7 +11,7 @@
     <div class="info">
         <div class="cont">
             <!--'http://116.62.181.150/'+-->
-            <img class="img" alt :src="info.url" />
+            <img class="img" alt :src="'http://116.62.181.150/'+info.url" />
             <div @click.stop="change" class="avatar">
                 <input type="file" name="file" accept="image/*" @change="handleFile" class="hiddenInput" ref="avatarInput" style="display: none" />
                 <span>修改头像</span>
@@ -162,6 +162,24 @@ export default {
         },
         // 将头像显示
         handleFile(e) {
+            let that = this;
+            let file = e.target.files[0];
+            that.uploadImgName = file.name;
+            let param = new FormData(); // 创建form对象
+            param.append("file", file, file.name); // 通过append向form对象添加数据
+            param.append('uid',that.$store.state.uid)
+            let uid=this.$store.state.uid
+            //  let config = {
+            //     headers: { "Content-Type": "multipart/form-data" }
+            // }
+        //  添加请求头
+              axios.post('http://116.62.181.150/api/img/post',param)
+                 .then(response => {
+                    console.log(response)
+                   if (response.data.status == 200) {
+                       // 成功上传后处理逻辑
+                 }
+              })
             // let that = this;
             // var name = event.target.files[0].name; //获取上传的文件名
             // var divObj = $(evn).prev(); //获取div的DOM对象
@@ -174,70 +192,21 @@ export default {
             //     reader.onloadend = function (e) {
             //         $("#" + 1).attr("src", e.target.result);
             //         that.$store.commit("avatar", e.target.result);
-            //         that.info.url = e.target.result;
-            //         // console.log(that.info.url)
-            //         axios({
-            //             url: "http://116.62.181.150/api/sms/Save64",
-            //             method: "post",
-            //             data: {
-            //                 filePath: that.info.url,
-            //                 uid: that.$store.state.uid
-            //             },
-            //         }).then(res => {
-            //             console.log(res)
-            //         })
+            //         // that.info.url = e.target.result;
+            //         console.log(typeof(e.target.result))
+            //         // axios({
+            //         //     url: "http://116.62.181.150/api/sms/SaveBinary",
+            //         //     method: "post",
+            //         //     params: {
+            //         //         uid: that.$store.state.uid,
+            //         //         path: e.target.result
+
+            //         //     },
+            //         // }).then(res => {
+            //         //     console.log(res)
+            //         // })
             //     };
             // }
-            let $target = e.target || e.srcElement //调用属性
-            let file = $target.files[0] //取第一张图
-            this.file = file;
-            //判断上传文件是否是图片类型：\w 的释义都是指包含大 小写字母数字和下划线 相当于([0-9a-zA-Z])
-            if (!/image\/\w+/.test(file.type)) {
-                this.$notify.error({
-                    title: '错误',
-                    message: '请上传图片文件'
-                });
-                return;
-            }
-            //获取图片大小，做图片大小限制
-            let imgSize = file.size;
-            //图片大小限制为5M,这里获取的单位大小为b
-            if (imgSize > 5 * 1024 * 1024) {
-                this.$notify.error({
-                    title: '错误',
-                    message: '图片大小限制为5M'
-                });
-                return;
-            }
-            // base64方法 2
-            //FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据
-            // let reader = new FileReader();
-            // //onload 事件会在页面或图像加载完成后立即发生
-            // reader.onload = (data) => {
-            //         let res = data.target || data.srcElement;
-            //         this.info.url = res.result
-            //     },
-            //     //FileReader对象的readAsDataURL方法可以将读取到的文件编码成Data URL
-            //     reader.readAsDataURL(file);
-            //将上传的头像图片提交给后台
-            this.handleUploadHead();
-        },
-        handleUploadHead() {
-            let file = this.file;
-            let picData = new FormData();
-            picData.append('file', file, file.name);
-            picData.append('uid', this.$store.state.uid)
-
-            //接口请求，根据自身项目做调整，这里只是简单介绍
-            axios({
-                contentType: 'application/json',
-                dataType: 'json',
-                url: "http://116.62.181.150/api/sms/SaveBinary",
-                method: 'post',
-                data: picData
-            }).then(res => {
-                console.log(res)
-            }).catch(err => {})
         },
         // 打开绑定邮箱弹框
         openemaile() {
@@ -291,8 +260,7 @@ export default {
                         url: "http://www.wwyyyy.shop/api/sms/CodeCheck",
                         method: "post",
                         params: {
-                            number: this.number,
-                            account: this.email
+                            number: this.number
                         },
                     })
                     .then(res => {
@@ -391,8 +359,7 @@ export default {
                         url: "http://www.wwyyyy.shop/api/sms/CodeCheck",
                         method: "post",
                         params: {
-                            number: this.number,
-                            account: this.phone
+                            number: this.number
                         },
                     })
                     .then(res => {
@@ -479,8 +446,7 @@ export default {
                         url: "http://www.wwyyyy.shop/api/sms/CodeCheck",
                         method: "post",
                         params: {
-                            number: this.number,
-                            account: this.bindphone
+                            number: this.number
                         },
                     })
                     .then(res => {

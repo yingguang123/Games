@@ -42,7 +42,8 @@ import top from "../../components/common/header/top.vue";
 
 // 接口
 import {
-    reg
+    reg,
+    code
 } from "../../network/reg.js";
 import axios from "axios";
 import qs from "qs";
@@ -81,8 +82,6 @@ export default {
                     })
                     .then((res) => {
                         console.log(res);
-                        // console.log(res.config.params.PhoneNumbers);
-                        // console.log(this.$store.commit("phone", res.config.params.PhoneNumbers));
                     })
                     .catch((err) => {
                         console.log(err);
@@ -162,8 +161,7 @@ export default {
                         url: "http://116.62.181.150/api/sms/CodeCheck",
                         method: "post",
                         params: {
-                            number: this.number,
-                            account: this.phone
+                            number: this.number
                         },
                     })
                     .then(function (res) {

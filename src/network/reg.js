@@ -9,6 +9,7 @@ export function reg(i){
     })
 }
 
+
 // 邮箱
 export function Email(a){
     return request({

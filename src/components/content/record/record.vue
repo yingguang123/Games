@@ -1,11 +1,11 @@
 <template>
 <div>
     <div class="con" style="background-color: #f2f2f2;">
-        <div class="info" v-for="item in orderList" :key="item.id">
+        <div class="info" v-for="item in orderList" :key="item.id.id">
             <div class="order">
                 <p>{{item.tradename.tradename}}</p>
-                <span v-if="item.order==2">待支付</span>
-                <span v-else-if="item.order==1">交易成功</span>
+                <span v-if="item.order.orders==2">待支付</span>
+                <span v-else-if="item.order.orders==1">交易成功</span>
                 <span v-else>交易失败</span>
             </div>
             <div class="commodity1">
@@ -20,8 +20,8 @@
                     <p>¥<span>{{item.amount.amount}}</span></p>
                 </div>
             </div>
-            <div class="btn" v-if="item.order==2==show">
-                <button @click="payment" v-if="item.orders==2">立即支付</button>
+            <div class="btn">
+                <button @click="payment(item)" v-if="item.order.orders==2">立即支付</button>
                 <!-- <button @click="del(item)">删除</button> -->
             </div>
         </div>
@@ -34,6 +34,9 @@
 import {
     delOrder
 } from '../../../network/record'
+import {
+    aplay
+} from '../../../network/payment'
 export default {
     components: {},
     props: {
@@ -46,24 +49,17 @@ export default {
     },
     methods: {
         // 立即支付
-        payment() {
-            // axios({
-            //     method: 'post',
-            //     url: 'http://116.62.181.150/api/transaction/ZFmoney',
-            //     params: {
-            //         money: this.money, //价钱
-            //         bodyes: this.tradename, //商品名称
-            //         paymentmethod: 1, //支付方式
-            //         sub: "充值"
-            //     },
-            // }).then((res) => {
-            //     //支付宝支付
-            //     // 添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
-            //     const div = document.createElement("div");
-            //     div.innerHTML = res.data.detail;
-            //     document.body.appendChild(div);
-            //     document.forms[0].submit();
-            // })
+        payment(item) {
+            console.log(item.id.id)
+            aplay(item.id.id,'http://localhost:8080/record').then(res => {
+                console.log(res)
+                //支付宝支付
+                //添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
+                const div = document.createElement("div");
+                div.innerHTML = res.data.detail;
+                document.body.appendChild(div);
+                document.forms[0].submit();
+            })
         }
     },
     mounted() {

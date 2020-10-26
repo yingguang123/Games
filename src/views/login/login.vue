@@ -140,6 +140,7 @@ export default {
                         that.$store.commit('nickname', res.data.users.nickname)
                         that.$store.commit('player', res.data.users.player)
                         that.$store.commit('inCread', res.data.users.id)
+                        that.$store.commit('bind', res.data.result)
                         if (res.data.users.phone = null) {
                             // 第一次登录qq跳转到绑定手机号页面
                             let {

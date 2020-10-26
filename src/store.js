@@ -9,6 +9,7 @@ export default new Vuex.Store({
         uid: localStorage.getItem('uid'), //id
         nickname:localStorage.getItem('nickname'),//昵称
         player: localStorage.getItem('player'), //player
+        bind: localStorage.getItem('bind'), //绑定结果
         email: localStorage.getItem('email'), //邮箱
         avatar: localStorage.getItem('avatar'), //头像
         phone: localStorage.getItem('phone'), //电话
@@ -28,6 +29,11 @@ export default new Vuex.Store({
         player(state, player) {
             state.player = player
             localStorage.setItem("player", player)
+        },
+          // 绑定结果
+          bind(state, bind) {
+            state.bind = bind
+            localStorage.setItem("bind", bind)
         },
         // 昵称
         nickname(state, nickname) {
