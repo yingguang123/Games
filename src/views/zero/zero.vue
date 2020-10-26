@@ -75,8 +75,7 @@ export default {
         // 立即付款
         now() {
             if (this.payment == "支付宝") {
-                // console.log(this.aid)
-                aplay(this.oid, 'http://localhost:8080/record').then(res => {
+                aplay(this.oid).then(res => {
                     console.log(res)
                     //支付宝支付
                     //添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
@@ -102,7 +101,6 @@ export default {
             this.aid = this.$route.params.aid,
             this.roleid = this.$route.params.roleid
         this.tradename = this.$route.params.tradename
-        // console.log(this.gid, this.roleid)
     },
     mounted() {
         // 添加商品信息
@@ -112,7 +110,6 @@ export default {
             params: {
                 gid: this.gid, //游戏id
                 uid: this.$store.state.uid, //玩家ID
-                // area: this.area, //大区
                 roleid: this.roleid, //角色名id
                 tradename: this.tradename, //商品名称
                 paymentmethod: 2, //支付方式
