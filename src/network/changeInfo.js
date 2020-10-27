@@ -31,13 +31,13 @@ export function myphone(phone){
 }
 
 // 更换头像
-export function Myavatar(uid,filePath){
+export function Myavatar(uid,file){
     return request1({
         method:'post',
-        url:'/api/sms/Save64',
+        url:'/api/img/post',
         params:{
             uid:uid,
-            filePath:filePath
+            file:file
         }
     })
 }
