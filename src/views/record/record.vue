@@ -48,6 +48,12 @@ export default {
         }).then(res => {
             console.log(res.data)
             this.order = res.data.model
+            axios({
+                method: 'get',
+                url: 'http://www.wwyyyy.shop/api/transaction/Noturl'
+            }).then(res => {
+                console.log(res)
+            })
 
         })
     },

@@ -75,7 +75,7 @@ export default {
         // 立即付款
         now() {
             if (this.payment == "支付宝") {
-                aplay(this.oid).then(res => {
+                aplay(this.oid, 'http://localhost:8080/record').then(res => {
                     console.log(res)
                     //支付宝支付
                     //添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错

@@ -3,12 +3,13 @@ import {qss} from './qs.js'
 
 
 // 支付宝
-export function aplay(oid){
+export function aplay(oid,url){
     return request({
         method:'post',
         url:'/api/transaction/ZFmoney',
         params:{
             oid:oid,
+            url:url
         }
     })
 }

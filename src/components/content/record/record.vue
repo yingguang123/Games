@@ -50,8 +50,8 @@ export default {
     methods: {
         // 立即支付
         payment(item) {
-            console.log(item.id.id)
-            aplay(item.id.id,'http://localhost:8080/record').then(res => {
+            // console.log(item.id.id)
+            aplay(item.id.id, 'http://localhost:8080/record').then(res => {
                 console.log(res)
                 //支付宝支付
                 //添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
