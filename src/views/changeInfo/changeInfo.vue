@@ -161,52 +161,36 @@ export default {
             this.$el.querySelector(".hiddenInput").click();
         },
         // 将头像显示
-        handleFile(e) {
+        handleFile(evn) {
+            // let $target = e.target || e.srcElement
+            // let file = $target.files[0]
             let that = this;
-            let file = e.target.files[0];
-            that.uploadImgName = file.name;
-            let param = new FormData(); // 创建form对象
-            param.append("file", file, file.name); // 通过append向form对象添加数据
-            param.append('uid',that.$store.state.uid)
-            let uid=this.$store.state.uid
-            //  let config = {
-            //     headers: { "Content-Type": "multipart/form-data" }
-            // }
-        //  添加请求头
-              axios.post('http://116.62.181.150/api/img/post',param)
-                 .then(response => {
-                    console.log(response)
-                   if (response.data.status == 200) {
-                       // 成功上传后处理逻辑
-                 }
-              })
-            // let that = this;
-            // var name = event.target.files[0].name; //获取上传的文件名
-            // var divObj = $(evn).prev(); //获取div的DOM对象
-            // $(divObj).html(name); //插入文件名
-            // var file = event.target.files[0];
-            // if (window.FileReader) {
-            //     var reader = new FileReader();
-            //     reader.readAsDataURL(file);
-            //     //监听文件读取结束后事件
-            //     reader.onloadend = function (e) {
-            //         $("#" + 1).attr("src", e.target.result);
-            //         that.$store.commit("avatar", e.target.result);
-            //         // that.info.url = e.target.result;
-            //         console.log(typeof(e.target.result))
-            //         // axios({
-            //         //     url: "http://116.62.181.150/api/sms/SaveBinary",
-            //         //     method: "post",
-            //         //     params: {
-            //         //         uid: that.$store.state.uid,
-            //         //         path: e.target.result
+            var name = event.target.files[0].name; //获取上传的文件名
+            var divObj = $(evn).prev(); //获取div的DOM对象
+            $(divObj).html(name); //插入文件名
+            var file = event.target.files[0];
+            if (window.FileReader) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                //监听文件读取结束后事件
+                reader.onloadend = function (e) {
+                    $("#" + 1).attr("src", e.target.result);
+                    that.$store.commit("avatar", e.target.result);
+                    // that.info.url = e.target.result;
+                    console.log(typeof (e.target.result))
+                    axios({
+                        url: "http://116.62.181.150/api/sms/SaveBinary",
+                        method: "post",
+                        params: {
+                            uid: that.$store.state.uid,
+                            filePath: e.target.result
 
-            //         //     },
-            //         // }).then(res => {
-            //         //     console.log(res)
-            //         // })
-            //     };
-            // }
+                        },
+                    }).then(res => {
+                        console.log(res)
+                    })
+                };
+            }
         },
         // 打开绑定邮箱弹框
         openemaile() {
@@ -375,9 +359,14 @@ export default {
                                 })
                                 .then(res => {
                                     console.log(res.data);
-                                    if (res.data.msg == '绑定成功') {
+                                    if (res.data.msg == '解绑手机号成功！') {
                                         this.phone = res.data.phone
                                         this.$store.commit("phone", this.phone);
+                                        this.$layer.msg("解绑成功", {
+                                            icon: 16,
+                                            shade: 0.3,
+                                            time: false,
+                                        });
                                     }
                                 })
                             this.phoneModel = !this.phoneModel;
@@ -513,7 +502,11 @@ export default {
             }).then((response) => {
                 console.log(response);
                 if ((response.data.msg = 0)) {
-                    alert("修改成功");
+                    this.$layer.msg("修改成功", {
+                        icon: 16,
+                        shade: 0.3,
+                        time: false,
+                    });
                 }
             });
         },

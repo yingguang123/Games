@@ -120,15 +120,15 @@ export default {
             QC.Login.getMe(function (openId, accessToken) {
                 if (openId !== undefined) {
                     //openId 是用户的唯一标识，也是需要存到数据库的
-                    console.log(openId)
-                    console.log(accessToken)
+                    // console.log(openId)
+                    // console.log(accessToken)
 
                 }
             })
-            console.log('已登录!')
-            this.$message.info('qq成功登录')
+            // console.log('已登录!')
+            // this.$message.info('qq成功登录')
         } else {
-            console.log('未登录')
+            // console.log('未登录')
         }
     },
 };

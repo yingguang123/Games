@@ -136,13 +136,7 @@ export default {
                 // console.log(res.data)
                 this.show = !this.show
                 this.showModel = !this.showModel
-                if (res.data.msg == false) {
-                    this.$layer.msg("请创建角色", {
-                        icon: 16,
-                        // shade: 0.3,
-                        time: false
-                    });
-                } else {
+                if (res.data.msg == false) {} else {
                     axios({
                         method: 'post',
                         url: 'http://www.wwyyyy.shop/api/role/APPRole',
@@ -197,7 +191,9 @@ export default {
                 }
             })
         },
-        remove1() {},
+        remove1() {
+            this.showModel = !this.showModel
+        },
 
         // 游戏收藏
         collect(item) {

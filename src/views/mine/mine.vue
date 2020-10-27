@@ -14,12 +14,13 @@
         <div class="nickname">
             <span>{{info.nickname}}</span>
         </div>
-        <div class="id">
-            <p>
-                ID：
-                <span>{{info.player}}</span>
-            </p>
-        </div>
+
+    </div>
+    <div class="id">
+        <p>
+            ID：
+            <span>{{info.player}}</span>
+        </p>
     </div>
     <div class="body">
         <div class="tit">
