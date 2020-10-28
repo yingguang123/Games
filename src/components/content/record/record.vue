@@ -56,9 +56,9 @@ export default {
                 //支付宝支付
                 //添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
                 const div = document.createElement("div");
-                div.innerHTML = res.data.detail;
+                div.innerHTML = res.data;
                 document.body.appendChild(div);
-                document.forms[0].submit();
+                document.forms.alipaysubmit.submit();
             })
         }
     },

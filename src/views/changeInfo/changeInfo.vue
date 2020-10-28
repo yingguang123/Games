@@ -161,142 +161,79 @@ export default {
             this.$el.querySelector(".hiddenInput").click();
         },
         // 将头像显示
-        handleFile(evn) {
-            // let $target = e.target || e.srcElement
-            // let file = $target.files[0]
-            let that = this;
-            var name = event.target.files[0].name; //获取上传的文件名
-            var divObj = $(evn).prev(); //获取div的DOM对象
-            $(divObj).html(name); //插入文件名
-            var file = event.target.files[0];
-            if (window.FileReader) {
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                //监听文件读取结束后事件
-                reader.onloadend = function (e) {
-                    $("#" + 1).attr("src", e.target.result);
-                    that.$store.commit("avatar", e.target.result);
-                    // that.info.url = e.target.result;
-                    console.log(typeof (e.target.result))
-                    axios({
-                        url: "http://116.62.181.150/api/sms/SaveBinary",
-                        method: "post",
-                        params: {
-                            uid: that.$store.state.uid,
-                            filePath: e.target.result
+        handleFile(e) {
+            // var that = this;
+            let $target = e.target || e.srcElement;
+            let file = $target.files[0];
+            // console.log(e.target.value)
+            let formData = new FormData()
+            formData.append("file", file);
+            formData.append("uid", this.$store.state.uid)
+            console.log(formData.get("file"))
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data' //之前说的以表单传数据的格式来传递fromdata
+                }
+            };
+            axios({
+                    url: "http://116.62.181.150/api/sms/SaveBinary",
+                    method: "post",
+                    data: formData,
 
-                        },
-                    }).then(res => {
-                        console.log(res)
-                    })
-                };
-            }
-        },
-        // 打开绑定邮箱弹框
-        openemaile() {
-            this.number = '',
-                this.showModel = !this.showModel
-        },
-        //邮箱点击验证码 判断邮箱是否正确
-        getemail() {
-            if (
-                /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(
-                    this.email
-                )
-            ) {
-                axios({
-                        // 发送邮箱验证码
-                        url: "http://www.wwyyyy.shop/api/sms/Email",
-                        method: "post",
-                        params: {
-                            email: this.email,
-                        },
-                    })
-                    .then(function (res) {
-                        console.log(res);
-                    })
-                    .catch(function (err) {});
-                this.show = false;
-                this.number = ""
-                //设置倒计时秒
-                this.timecount = 59;
-                var auth_timetimer = setInterval(() => {
-                    this.timecount--;
-                    if (this.timecount <= 0) {
-                        this.show = true;
-                        clearInterval(auth_timetimer);
-                    }
-                }, 1000);
-            } else {
-                this.$layer.msg("邮箱格式错误", {
-                    icon: 16,
-                    shade: 0.3,
-                    time: false,
+                }).then(res => {
+                    console.log(res)
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
-            }
-        },
-        //邮箱点击确定
-        sureemail() {
-            if (this.email != "" && this.number != "") {
-                // this.$store.commit('email', this.email)
-                // 校验邮箱和验证码
-                axios({
-                        url: "http://www.wwyyyy.shop/api/sms/CodeCheck",
-                        method: "post",
-                        params: {
-                            number: this.number
-                        },
-                    })
-                    .then(res => {
-                        console.log(res);
-                        if (res.data == true) {
-                            // 绑定邮箱
-                            axios({
-                                    url: "http://www.wwyyyy.shop/api/users/UpdataEmail",
-                                    method: "post",
-                                    params: {
-                                        ID: this.$store.state.uid,
-                                        email: this.email
-                                    },
-                                })
-                                .then(res => {
-                                    console.log(res);
-                                    if (res.data.msg == "绑定邮箱账号成功") {
-                                        this.$layer.msg("绑定成功", {
-                                            icon: 16,
-                                            shade: 0.3,
-                                            time: false,
-                                        });
-                                        this.email = res.data.email
-                                        this.$store.commit("email", this.email);
-                                    } else {
-                                        this.$layer.msg("已解绑", {
-                                            icon: 16,
-                                            shade: 0.3,
-                                            time: false,
-                                        });
-                                        this.email = '未绑定'
-                                        this.$store.commit('email', this.email)
-                                    }
+            // let that = this;
+            // var name = event.target.files[0].name; //获取上传的文件名
+            // var divObj = $(evn).prev(); //获取div的DOM对象
+            // $(divObj).html(name); //插入文件名
+            // var file = event.target.files[0];
+            // if (window.FileReader) {
+            //     var reader = new FileReader();
+            //     reader.readAsDataURL(file);
+            //     //监听文件读取结束后事件
+            //     reader.onloadend = function (e) {
+            //         $("#" + 1).attr("src", e.target.result);
+            //         that.$store.commit("avatar", e.target.result);
+            //         // that.info.url = e.target.result;
+            //         console.log(typeof (e.target.result))
+            //         axios({
+            //             url: "http://116.62.181.150/api/sms/SaveBinary",
+            //             method: "post",
+            //             params: {
+            //                 uid: that.$store.state.uid,
+            //                 filePath: e.target.result
 
-                                })
-                            this.showModel = !this.showModel
-                        }
-                    })
-                    .catch(function (err) {});
-
-            } else
-                this.$layer.msg("邮箱或验证码为空", {
-                    icon: 16,
-                    shade: 0.3,
-                    time: false,
-                });
+            //             },
+            //         }).then(res => {
+            //             console.log(res)
+            //         })
+            //     };
+            // }
         },
-        //邮箱取消
-        emailnone() {
-            this.showModel = false;
-            this.number = "";
-            this.show = true;
+        // 更改昵称
+        determine() {
+            this.nickname = !this.nickname;
+            axios({
+                url: "http://www.wwyyyy.shop/api/users/UpdataName",
+                method: "post",
+                params: {
+                    id: this.$store.state.uid,
+                    nickname: this.info.nickname,
+                },
+            }).then((response) => {
+                console.log(response);
+                if ((response.data.msg = 0)) {
+                    this.$layer.msg("修改成功", {
+                        icon: 16,
+                        shade: 0.3,
+                        time: false,
+                    });
+                }
+            });
         },
         // 绑定邮箱弹框
         open() {
@@ -484,53 +421,117 @@ export default {
             this.bindphone = ""
             this.number = ''
         },
+        // 打开绑定邮箱弹框
+        openemaile() {
+            this.number = '',
+                this.showModel = !this.showModel
+        },
+        //邮箱点击验证码 判断邮箱是否正确
+        getemail() {
+            if (
+                /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(
+                    this.email
+                )
+            ) {
+                axios({
+                        // 发送邮箱验证码
+                        url: "http://www.wwyyyy.shop/api/sms/Email",
+                        method: "post",
+                        params: {
+                            email: this.email,
+                        },
+                    })
+                    .then(function (res) {
+                        console.log(res);
+                    })
+                    .catch(function (err) {});
+                this.show = false;
+                this.number = ""
+                //设置倒计时秒
+                this.timecount = 59;
+                var auth_timetimer = setInterval(() => {
+                    this.timecount--;
+                    if (this.timecount <= 0) {
+                        this.show = true;
+                        clearInterval(auth_timetimer);
+                    }
+                }, 1000);
+            } else {
+                this.$layer.msg("邮箱格式错误", {
+                    icon: 16,
+                    shade: 0.3,
+                    time: false,
+                });
+            }
+        },
+        //邮箱点击确定
+        sureemail() {
+            if (this.email != "" && this.number != "") {
+                // this.$store.commit('email', this.email)
+                // 校验邮箱和验证码
+                axios({
+                        url: "http://www.wwyyyy.shop/api/sms/CodeCheck",
+                        method: "post",
+                        params: {
+                            number: this.number
+                        },
+                    })
+                    .then(res => {
+                        console.log(res);
+                        if (res.data == true) {
+                            // 绑定邮箱
+                            axios({
+                                    url: "http://www.wwyyyy.shop/api/users/UpdataEmail",
+                                    method: "post",
+                                    params: {
+                                        ID: this.$store.state.uid,
+                                        email: this.email
+                                    },
+                                })
+                                .then(res => {
+                                    console.log(res);
+                                    if (res.data.msg == "绑定邮箱账号成功") {
+                                        this.$layer.msg("绑定成功", {
+                                            icon: 16,
+                                            shade: 0.3,
+                                            time: false,
+                                        });
+                                        this.email = res.data.email
+                                        this.$store.commit("email", this.email);
+                                    } else {
+                                        this.$layer.msg("已解绑", {
+                                            icon: 16,
+                                            shade: 0.3,
+                                            time: false,
+                                        });
+                                        this.email = '未绑定'
+                                        this.$store.commit('email', this.email)
+                                    }
+
+                                })
+                            this.showModel = !this.showModel
+                        }
+                    })
+                    .catch(function (err) {});
+
+            } else
+                this.$layer.msg("邮箱或验证码为空", {
+                    icon: 16,
+                    shade: 0.3,
+                    time: false,
+                });
+        },
+        //邮箱取消
+        emailnone() {
+            this.showModel = false;
+            this.number = "";
+            this.show = true;
+        },
+
         //头部返回到上一级
         back() {
             this.$router.go(-1);
         },
-
-        // 更改昵称
-        determine() {
-            this.nickname = !this.nickname;
-            axios({
-                url: "http://www.wwyyyy.shop/api/users/UpdataName",
-                method: "post",
-                params: {
-                    id: this.$store.state.uid,
-                    nickname: this.info.nickname,
-                },
-            }).then((response) => {
-                console.log(response);
-                if ((response.data.msg = 0)) {
-                    this.$layer.msg("修改成功", {
-                        icon: 16,
-                        shade: 0.3,
-                        time: false,
-                    });
-                }
-            });
-        },
-        // qq授权
-        qq() {
-            if (QC.Login.check()) {
-                QC.Login.getMe(function (openId, accessToken) {
-                    console.log(accessToken)
-                    let access_token = accessToken
-                    axios({
-                        url: 'http://116.62.181.150/api/users/QCLogin',
-                        method: 'post',
-                        params: {
-                            access_token: accessToken
-                        }
-                    }).then(res => {
-                        console.log(res.data)
-                        if (res.data.res = true) {
-                            // window.location.href = "http://192.168.0.91:8080/bind"
-                        }
-                    })
-                });
-            }
-        }
     },
     created() {
         // 个人信息
